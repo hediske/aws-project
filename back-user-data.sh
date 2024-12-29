@@ -17,8 +17,7 @@ cd /home/ec2-user/node_server/backend
 sudo echo "DB_NAME=tasks
 DB_USER=admin
 DB_PASSWORD=clB80rJXcaHmqvdTtvvF
-DB_HOST=database-1.cnbkvitvmzfx.us-east-1.rds.amazonaws.com
-AWS_BUCKET_NAME=webapp-igl-assets" > .env
+DB_HOST=database-1.cnbkvitvmzfx.us-east-1.rds.amazonaws.com" > .env
 
 # Install project dependencies
 sudo npm install
