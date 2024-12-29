@@ -45,7 +45,7 @@ const App = () => {
     try {
       console.log(taskForm);
       const response = await axios.post(`api/tasks`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: { "Content-Type": "application/json" },
       });
       setTasks([...tasks, response.data]);
       setTaskForm({
