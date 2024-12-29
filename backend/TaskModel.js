@@ -24,11 +24,6 @@ const Task = sequelize.define('Tasks', {
         type: DataTypes.DATE,
         allowNull: true,
     },
-    bannerUrl: {
-        type: DataTypes.STRING,
-        allowNull: true,
-    },
-
 });
 Task.sync()
 export default Task;

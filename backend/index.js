@@ -2,7 +2,6 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import { addTask, getAllTasks, findTaskById, deleteAllTasks, deleteTaskById } from './TaskService.js';
-import uploadS3 from './s3Upload.js';
 import { connectDB } from './DBconfig.js';
 
 
@@ -24,14 +23,11 @@ app.get('/health',(req,res)=>{
     res.json("This is the health check");
 });
 
-// Add Task with S3 upload
-app.post('/tasks', uploadS3.single('banner'), async (req, res) => {
+// Add Task
+app.post('/tasks', async (req, res) => {
   try {
-    console.log(req.body)
     const { title, description, Startdate, Enddate } = req.body;
-    const bannerUrl = req.file ? req.file.location : null;
-    console.log({ title, description, Startdate, Enddate, bannerUrl })
-    const task = await addTask({ title, description, Startdate, Enddate, bannerUrl });
+    const task = await addTask({ title, description, Startdate, Enddate });
     res.status(201).json(task);
   } catch (error) {
     res.status(500).json({ error: error.message });
