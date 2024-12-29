@@ -9,7 +9,6 @@ const App = () => {
     description: "",
     Startdate: "",
     Enddate: "",
-    banner: null,
   });
 
   // Fetch all tasks on load
@@ -19,7 +18,7 @@ const App = () => {
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/tasks`);
+      const response = await axios.get(`api/tasks`);
       setTasks(response.data);
     } catch (error) {
       console.error("Error fetching tasks:", error);
@@ -45,7 +44,7 @@ const App = () => {
 
     try {
       console.log(taskForm);
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/tasks`, formData, {
+      const response = await axios.post(`api/tasks`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setTasks([...tasks, response.data]);
@@ -54,7 +53,6 @@ const App = () => {
         description: "",
         Startdate: "",
         Enddate: "",
-        banner: null,
       });
       toast.success("Task successfully added to the database")
     } catch (error) {
@@ -64,7 +62,7 @@ const App = () => {
 
   const handleDeleteTask = async (id) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/tasks/${id}`);
+      await axios.delete(`api/tasks/${id}`);
       setTasks(tasks.filter((task) => task.id !== id));
     } catch (error) {
       console.error("Error deleting task:", error);
@@ -119,16 +117,6 @@ const App = () => {
             required
           />
         </div>
-        <div className="mb-4">
-          <label className="block mb-2 font-medium">Banner</label>
-          <input
-            type="file"
-            name="banner"
-            onChange={handleFormChange}
-            className="w-full border border-gray-300 rounded px-3 py-2"
-            required
-          />
-        </div>
         <button
           type="submit"
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
@@ -153,11 +141,6 @@ const App = () => {
                     <strong>Start:</strong> {task.Startdate} <br /> <strong>End:</strong>{" "}
                     {task.Enddate}
                   </p>
-                  <img
-                    src={task.bannerUrl ? task.bannerUrl : "https://coffective.com/wp-content/uploads/2018/06/default-featured-image.png.jpg"}
-                    alt={task.title}
-                    className="w-24 h-24 object-cover mt-2"
-                  />
                 </div>
                 <button
                   onClick={() => handleDeleteTask(task.id)}
