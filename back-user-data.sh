@@ -13,11 +13,18 @@ git clone --branch back https://github.com/hediske/aws-project.git /home/ec2-use
 # Navigate to the project directory
 cd /home/ec2-user/node_server/backend
 
+#Add the credentials
+sudo echo "DB_NAME=tasks
+DB_USER=admin
+DB_PASSWORD=clB80rJXcaHmqvdTtvvF
+DB_HOST=database-1.cnbkvitvmzfx.us-east-1.rds.amazonaws.com
+AWS_BUCKET_NAME=webapp-igl-assets" > .env
+
 # Install project dependencies
-npm install
+sudo npm install
 
 # Start the Node.js server
-nohup node index.js > /home/ec2-user/node_server/server.log 2>&1 &
+sudo nohup node index.js > /tmp/node_server.log 2>&1 &
 
 # Enable server to start on boot using systemd (optional, if you want the server to run as a service)
 echo "[Unit]
@@ -25,7 +32,7 @@ Description=Node.js Server
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/node /home/ec2-user/node_server/index.js
+ExecStart=/usr/bin/node /home/ec2-user/node_server/backend/index.js
 WorkingDirectory=/home/ec2-user/node_server
 Restart=always
 User=ec2-user

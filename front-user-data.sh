@@ -12,6 +12,8 @@ sudo systemctl enable nginx
 git clone --branch front https://github.com/hediske/aws-project.git /home/ec2-user/your-react-app
 cd /home/ec2-user/your-react-app/frontend
 
+sudo echo "REACT_APP_API_URL=/api" > .env
+
 # Install dependencies and build the React app
 npm install
 npm run build
@@ -28,6 +30,9 @@ server {
     root /home/ec2-user/app-deploy/build;
     location / {
         try_files \$uri /index.html;
+    }
+    location /api/ {
+        proxy_pass http://internal-BackLoadBalancer-7722525.us-east-1.elb.amazonaws.com:80/;
     }
 }
 EOF
