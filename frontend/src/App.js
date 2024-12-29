@@ -18,7 +18,7 @@ const App = () => {
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get(`api/tasks`);
+      const response = await axios.get(`http://localhost:4000/tasks`);
       setTasks(response.data);
     } catch (error) {
       console.error("Error fetching tasks:", error);
@@ -44,8 +44,8 @@ const App = () => {
 
     try {
       console.log(taskForm);
-      const response = await axios.post(`api/tasks`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
+      const response = await axios.post(`http://localhost:4000/tasks`, formData, {
+        headers: { "Content-Type": "application/json" },
       });
       setTasks([...tasks, response.data]);
       setTaskForm({
@@ -62,7 +62,7 @@ const App = () => {
 
   const handleDeleteTask = async (id) => {
     try {
-      await axios.delete(`api/tasks/${id}`);
+      await axios.delete(`http://localhost:4000/tasks/${id}`);
       setTasks(tasks.filter((task) => task.id !== id));
     } catch (error) {
       console.error("Error deleting task:", error);

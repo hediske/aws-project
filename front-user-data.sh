@@ -12,11 +12,10 @@ sudo systemctl enable nginx
 git clone --branch front https://github.com/hediske/aws-project.git /home/ec2-user/your-react-app
 cd /home/ec2-user/your-react-app/frontend
 
-sudo echo "REACT_APP_API_URL=/api" > .env
 
 # Install dependencies and build the React app
-npm install
-npm run build
+sudo npm install
+sudo npm run build
 
 # Create a folder to serve the React app    
 mkdir /home/ec2-user/app-deploy
