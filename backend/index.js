@@ -25,6 +25,7 @@ app.get('/health',(req,res)=>{
 
 // Add Task
 app.post('/tasks', async (req, res) => {
+  console.log("req.body", req);
   try {
     const { title, description, Startdate, Enddate } = req.body;
     const task = await addTask({ title, description, Startdate, Enddate });
